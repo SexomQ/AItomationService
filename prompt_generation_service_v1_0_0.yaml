@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Prompt Generation Service
+  description: |-
+    This if the API interface for interacting with Prompt
+    Generation Service. The service generates custom prompts
+    automatically using action - the intermediate step in the chain
+    of thought, domain - the domain to which refers the process,
+    process - the initial input from user describing what he wants
+    to achieve.
+  version: 1.0.0
+
+paths:
+  /generate:
+    post:
+      summary: Returns a generated prompt.
+      description: This endpoint returns a generated custom prompt using LLMs.
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        404:
+          description: Not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/prompt'
+        required: true
+
+components:
+  schemas:
+    prompt:
+      type: object
+      properties:
+        domain:
+          type: string
+          example: Travel Bloging
+        action:
+          type: string
+          example: Select a city from the list of 20 lesser-known cities.
+        process:
+          type: string
+          example: I run a travel blog and want to create a series of articles about hidden gems in Europe. I have a list of 20 lesser-known cities with basic info like country, population, and a few key attractions. I want to generate engaging blog posts that include a catchy title, an introduction that piques interest, a section on the city's history, a part about local cuisine, and a conclusion that encourages readers to visit. Each post should be around 800 words.
